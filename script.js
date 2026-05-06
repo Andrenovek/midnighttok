@@ -159,11 +159,7 @@ function vote(artist) {
 
   // Voto inicial simulado para mostrar a barra logo ao entrar
   // Remova esse bloco se quiser começar do zero (0 x 0)
-  if (data.drake === 0 && data.travis === 0) {
-    data.drake  = 312;
-    data.travis = 267;
-    saveData(data);
-  }
+
 
   updateUI(data);
 })();
