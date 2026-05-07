@@ -1,28 +1,28 @@
 /* ============================================================
-   BATALHA DO RAP — script.js
-   Organização:
-   1. Configuração (chave do localStorage)
-   2. getData()    — lê os votos salvos
-   3. saveData()   — salva os votos
-   4. showToast()  — exibe notificação na tela
-   5. updateUI()   — atualiza barra, %, banner de vencedor
-   6. vote()       — registra o voto do usuário
-   7. init()       — inicializa a página
+   RAP BATTLE — script.js
+   Sections:
+   1. Configuration (localStorage key)
+   2. getData()    — reads saved votes
+   3. saveData()   — saves votes
+   4. showToast()  — displays on-screen notification
+   5. updateUI()   — updates bar, percentages, winner banner
+   6. vote()       — registers the user's vote
+   7. init()       — initializes the page
 ============================================================ */
 
 
 /* ============================================================
-   1. CONFIGURAÇÃO
-   Altere a chave se criar uma nova batalha (ex: 'kendrick_vs_cole_v1')
-   Isso garante que cada batalha tenha seus próprios votos.
+   1. CONFIGURATION
+   Change this key when creating a new battle (e.g. 'kendrick_vs_cole_v1')
+   This ensures each battle has its own separate vote count.
 ============================================================ */
 const STORAGE_KEY = 'rap_battle_drake_travis_v1';
 
 
 /* ============================================================
    2. getData()
-   Lê os dados de votos do localStorage.
-   Retorna objeto: { drake: 0, travis: 0, voted: false, myVote: null }
+   Reads vote data from localStorage.
+   Returns: { drake: 0, travis: 0, voted: false, myVote: null }
 ============================================================ */
 function getData() {
   try {
@@ -36,21 +36,21 @@ function getData() {
 
 /* ============================================================
    3. saveData()
-   Salva o objeto de dados no localStorage.
+   Saves the data object to localStorage.
 ============================================================ */
 function saveData(data) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (e) {
-    console.warn('Não foi possível salvar os votos:', e);
+    console.warn('Could not save votes:', e);
   }
 }
 
 
 /* ============================================================
    4. showToast()
-   Exibe uma notificação temporária na parte inferior da tela.
-   Parâmetro: msg (string) — texto a exibir
+   Displays a temporary notification at the bottom of the screen.
+   Parameter: msg (string) — text to display
 ============================================================ */
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -65,48 +65,47 @@ function showToast(msg) {
 
 /* ============================================================
    5. updateUI()
-   Atualiza a interface com base nos dados de votos.
-   - Mostra a barra de resultado
-   - Atualiza as porcentagens
-   - Exibe o banner de vencedor (se tiver votos suficientes)
-   - Desabilita botões se o usuário já votou
+   Updates the interface based on vote data.
+   - Shows the results bar
+   - Updates percentages
+   - Displays winner banner (if enough votes)
+   - Disables buttons if the user already voted
 ============================================================ */
 function updateUI(data) {
   const total = data.drake + data.travis;
 
-  // Sem votos ainda: não exibe resultado
+  // No votes yet: don't show results
   if (total === 0) return;
 
-  // Calcula porcentagens
+  // Calculate percentages
   const pctDrake  = Math.round((data.drake  / total) * 100);
-  const pctTravis = Math.round((data.travis  / total) * 100);
+  const pctTravis = 100 - pctDrake;
 
-  // Atualiza os números na tela
+  // Update numbers on screen
   document.getElementById('pct-drake').textContent  = pctDrake;
   document.getElementById('pct-travis').textContent = pctTravis;
 
-  // Atualiza a largura da barra
-  document.getElementById('bar-drake').style.width = 0 + '%';
-  document.getElementById('bar-travis').style.width ='100%';
+  // Update bar width
+  document.getElementById('bar-drake').style.width = pctDrake + '%';
 
-  // Exibe a seção de resultado
+  // Show results section
   document.getElementById('result-section').classList.add('visible');
 
-  // Banner de vencedor (exibido a partir de 5 votos)
+  // Winner banner (shown after 5+ votes)
   const banner = document.getElementById('winner-banner');
 
   if (total >= 5) {
     if (pctDrake > pctTravis) {
-      banner.innerHTML = '🦉 Drake está vencendo com <strong style="color:var(--drake)">' + pctDrake + '%</strong> dos votos!';
+      banner.innerHTML = '🦉 Drake is winning with <strong style="color:var(--drake)">' + pctDrake + '%</strong> of the votes!';
     } else if (pctTravis > pctDrake) {
-      banner.innerHTML = '🌵 Travis Scott está vencendo com <strong style="color:var(--travis)">' + pctTravis + '%</strong> dos votos!';
+      banner.innerHTML = '🌵 Travis Scott is winning with <strong style="color:var(--travis)">' + pctTravis + '%</strong> of the votes!';
     } else {
-      banner.innerHTML = '⚡ Empate total! A batalha tá acirrada!';
+      banner.innerHTML = "⚡ It's a tie! The battle is too close to call!";
     }
     banner.classList.add('show');
   }
 
-  // Se o usuário já votou: desabilita botões e destaca o card escolhido
+  // If user already voted: disable buttons and highlight chosen card
   if (data.voted) {
     document.querySelectorAll('.vote-btn').forEach(btn => btn.disabled = true);
 
@@ -121,46 +120,48 @@ function updateUI(data) {
 
 /* ============================================================
    6. vote()
-   Chamada quando o usuário clica em "Votar".
-   Parâmetro: artist (string) — 'drake' ou 'travis'
+   Called when the user clicks "Vote".
+   Parameter: artist (string) — 'drake' or 'travis'
 ============================================================ */
 function vote(artist) {
   const data = getData();
 
-  // Impede voto duplo
+  // Prevent double voting
   if (data.voted) {
-    showToast('Você já votou nessa batalha!');
+    showToast('You already voted in this battle!');
     return;
   }
 
-  // Registra o voto
+  // Register vote
   data[artist]++;
   data.voted  = true;
   data.myVote = artist;
   saveData(data);
 
-  // Feedback visual
+  // Visual feedback
   const label = artist === 'drake' ? '🦉 Drake' : '🌵 Travis Scott';
-  showToast('Voto registrado para ' + label + '!');
+  showToast('Vote registered for ' + label + '!');
 
-  // Atualiza a interface
+  // Update interface
   updateUI(data);
 }
 
 
 /* ============================================================
-   7. INICIALIZAÇÃO
-   Roda quando a página carrega.
-   - Se for o primeiro acesso, semeia votos iniciais (simulados)
-     para que a barra já apareça com um placar inicial.
-   - Depois atualiza a interface com os dados atuais.
+   7. INITIALIZATION
+   Runs when the page loads.
+   - Seeds initial (simulated) votes on first visit so the bar
+     is visible right away. Remove this block to start from 0 x 0.
 ============================================================ */
 (function init() {
   const data = getData();
 
-  // Voto inicial simulado para mostrar a barra logo ao entrar
-  // Remova esse bloco se quiser começar do zero (0 x 0)
-
+  // Simulated seed votes — remove if you want to start from scratch
+  if (data.drake === 0 && data.travis === 0) {
+    data.drake  = 312;
+    data.travis = 267;
+    saveData(data);
+  }
 
   updateUI(data);
 })();
