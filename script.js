@@ -86,7 +86,7 @@ function updateUI(data) {
   document.getElementById('pct-travis').textContent = pctTravis;
 
   // Atualiza a largura da barra
-  document.getElementById('bar-drake').style.width = pctDrake + '%';
+  document.getElementById('bar-drake').style.width = 0 + '%';
   document.getElementById('bar-travis').style.width ='100%';
 
   // Exibe a seção de resultado
