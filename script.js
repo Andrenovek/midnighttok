@@ -1,92 +1,73 @@
 /* ============================================================
    RAP BATTLE — script.js
    Sections:
-   1. Configuration (localStorage key)
-   2. getData()    — reads saved votes
-   3. saveData()   — saves votes
-   4. showToast()  — displays on-screen notification
-   5. updateUI()   — updates bar, percentages, winner banner
-   6. vote()       — registers the user's vote
-   7. init()       — initializes the page
+   1. Firebase configuration & initialization
+   2. showToast()  — displays on-screen notification
+   3. updateUI()   — updates bar, percentages, winner banner
+   4. vote()       — registers the user's vote in Firebase
+   5. listenToVotes() — listens to real-time updates from Firebase
+   6. init()       — initializes the page
 ============================================================ */
+
+import { initializeApp }                   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, runTransaction, onValue }
+                                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 
 /* ============================================================
-   1. CONFIGURATION
-   Change this key when creating a new battle (e.g. 'kendrick_vs_cole_v1')
-   This ensures each battle has its own separate vote count.
+   1. FIREBASE CONFIGURATION
+   These are your project credentials from the Firebase console.
 ============================================================ */
-const STORAGE_KEY = 'rap_battle_drake_travis_v1';
+const firebaseConfig = {
+  apiKey:            "AIzaSyD6C3dMnvHo7WZ0ZBP6gtpUigPtLszgDgQ",
+  authDomain:        "midnighttok-d82f4.firebaseapp.com",
+  projectId:         "midnighttok-d82f4",
+  storageBucket:     "midnighttok-d82f4.firebasestorage.app",
+  messagingSenderId: "1003747180117",
+  appId:             "1:1003747180117:web:d7633303db2b1e15ba63dc",
+  measurementId:     "G-8SEVG3EXB8",
+  databaseURL:       "https://midnighttok-d82f4-default-rtdb.firebaseio.com"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+// Reference to the votes node in the database
+// Each battle has its own path — change this for new battles
+const BATTLE_REF = "battles/drake-vs-travis";
 
 
 /* ============================================================
-   2. getData()
-   Reads vote data from localStorage.
-   Returns: { drake: 0, travis: 0, voted: false, myVote: null }
-============================================================ */
-function getData() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : { drake: 0, travis: 0, voted: false, myVote: null };
-  } catch (e) {
-    return { drake: 0, travis: 0, voted: false, myVote: null };
-  }
-}
-
-
-/* ============================================================
-   3. saveData()
-   Saves the data object to localStorage.
-============================================================ */
-function saveData(data) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    console.warn('Could not save votes:', e);
-  }
-}
-
-
-/* ============================================================
-   4. showToast()
+   2. showToast()
    Displays a temporary notification at the bottom of the screen.
-   Parameter: msg (string) — text to display
 ============================================================ */
 function showToast(msg) {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
   toast.classList.add('show');
 
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2500);
+  setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
 
 /* ============================================================
-   5. updateUI()
-   Updates the interface based on vote data.
-   - Shows the results bar
-   - Updates percentages
-   - Displays winner banner (if enough votes)
-   - Disables buttons if the user already voted
+   3. updateUI()
+   Updates the bar, percentages and winner banner
+   based on data coming from Firebase.
 ============================================================ */
-function updateUI(data) {
-  const total = data.drake + data.travis;
-
-  // No votes yet: don't show results
+function updateUI(drake, travis) {
+  const total = drake + travis;
   if (total === 0) return;
 
-  // Calculate percentages
-  const pctDrake  = Math.round((data.drake  / total) * 100);
+  const pctDrake  = Math.round((drake  / total) * 100);
   const pctTravis = 100 - pctDrake;
 
-  // Update numbers on screen
+  // Update percentages
   document.getElementById('pct-drake').textContent  = pctDrake;
   document.getElementById('pct-travis').textContent = pctTravis;
 
   // Update bar widths
-  document.getElementById('bar-drake').style.width  = pctDrake + '%';
+  document.getElementById('bar-drake').style.width  = pctDrake  + '%';
   document.getElementById('bar-travis').style.width = pctTravis + '%';
 
   // Show results section
@@ -105,58 +86,90 @@ function updateUI(data) {
     }
     banner.classList.add('show');
   }
+}
 
-  // If user already voted: disable buttons and highlight chosen card
-  if (data.voted) {
+
+/* ============================================================
+   4. vote()
+   Called when the user clicks "Vote".
+   Uses Firebase runTransaction to safely increment the counter
+   even if multiple people vote at the exact same time.
+============================================================ */
+window.vote = function(artist) {
+
+  // Check if user already voted (stored locally per device)
+  const localKey = 'voted_' + BATTLE_REF.replace(/\//g, '_');
+  if (localStorage.getItem(localKey)) {
+    showToast('You already voted in this battle!');
+    return;
+  }
+
+  // Increment the correct counter in Firebase
+  const artistRef = ref(db, BATTLE_REF + '/' + artist);
+
+  runTransaction(artistRef, (current) => {
+    return (current || 0) + 1;
+  }).then(() => {
+    // Save vote locally so the user can't vote twice
+    localStorage.setItem(localKey, artist);
+
+    // Visual feedback
+    const label = artist === 'drake' ? '🦉 Drake' : '🌵 Travis Scott';
+    showToast('Vote registered for ' + label + '!');
+
+    // Highlight the chosen card
+    if (artist === 'drake') {
+      document.getElementById('card-drake').classList.add('selected-drake');
+    } else {
+      document.getElementById('card-travis').classList.add('selected-travis');
+    }
+
+    // Disable both vote buttons
     document.querySelectorAll('.vote-btn').forEach(btn => btn.disabled = true);
 
-    if (data.myVote === 'drake') {
+  }).catch(() => {
+    showToast('Connection error. Please try again.');
+  });
+}
+
+
+/* ============================================================
+   5. listenToVotes()
+   Opens a real-time listener on Firebase.
+   Every time any user votes, ALL open pages update instantly.
+============================================================ */
+function listenToVotes() {
+  const battleRef = ref(db, BATTLE_REF);
+
+  onValue(battleRef, (snapshot) => {
+    const data   = snapshot.val() || {};
+    const drake  = data.drake  || 0;
+    const travis = data.travis || 0;
+    updateUI(drake, travis);
+  });
+}
+
+
+/* ============================================================
+   6. INITIALIZATION
+   - Restores voted state if the user already voted on this device
+   - Starts listening to Firebase for real-time vote updates
+============================================================ */
+(function init() {
+  const localKey  = 'voted_' + BATTLE_REF.replace(/\//g, '_');
+  const myVote    = localStorage.getItem(localKey);
+
+  // If user already voted on this device, disable buttons and highlight card
+  if (myVote) {
+    document.querySelectorAll('.vote-btn').forEach(btn => btn.disabled = true);
+
+    if (myVote === 'drake') {
       document.getElementById('card-drake').classList.add('selected-drake');
     } else {
       document.getElementById('card-travis').classList.add('selected-travis');
     }
   }
-}
 
-
-/* ============================================================
-   6. vote()
-   Called when the user clicks "Vote".
-   Parameter: artist (string) — 'drake' or 'travis'
-============================================================ */
-function vote(artist) {
-  const data = getData();
-
-  // Prevent double voting
-  if (data.voted) {
-    showToast('You already voted in this battle!');
-    return;
-  }
-
-  // Register vote
-  data[artist]++;
-  data.voted  = true;
-  data.myVote = artist;
-  saveData(data);
-
-  // Visual feedback
-  const label = artist === 'drake' ? '🦉 Drake' : '🌵 Travis Scott';
-  showToast('Vote registered for ' + label + '!');
-
-  // Update interface
-  updateUI(data);
-}
-
-
-/* ============================================================
-   7. INITIALIZATION
-   Runs when the page loads.
-   - Seeds initial (simulated) votes on first visit so the bar
-     is visible right away. Remove this block to start from 0 x 0.
-============================================================ */
-(function init() {
-  const data = getData();
-
-
-  updateUI(data);
+  // Start real-time listener
+  listenToVotes();
 })();
