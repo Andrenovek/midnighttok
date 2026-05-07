@@ -79,7 +79,7 @@ function updateUI(data) {
 
   // Calcula porcentagens
   const pctDrake  = Math.round((data.drake  / total) * 100);
-  const pctTravis = 100 - pctDrake;
+  const pctTravis = Math.round((data.travis  / total) * 100);
 
   // Atualiza os números na tela
   document.getElementById('pct-drake').textContent  = pctDrake;
