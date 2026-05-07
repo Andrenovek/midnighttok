@@ -156,12 +156,5 @@ function vote(artist) {
 (function init() {
   const data = getData();
 
-  // Simulated seed votes — remove if you want to start from scratch
-  if (data.drake === 0 && data.travis === 0) {
-    data.drake  = 312;
-    data.travis = 267;
-    saveData(data);
-  }
-
   updateUI(data);
 })();
