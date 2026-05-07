@@ -85,8 +85,9 @@ function updateUI(data) {
   document.getElementById('pct-drake').textContent  = pctDrake;
   document.getElementById('pct-travis').textContent = pctTravis;
 
-  // Update bar width
-  document.getElementById('bar-drake').style.width = pctDrake + '%';
+  // Update bar widths
+  document.getElementById('bar-drake').style.width  = pctDrake + '%';
+  document.getElementById('bar-travis').style.width = pctTravis + '%';
 
   // Show results section
   document.getElementById('result-section').classList.add('visible');
@@ -155,6 +156,7 @@ function vote(artist) {
 ============================================================ */
 (function init() {
   const data = getData();
+
 
   updateUI(data);
 })();

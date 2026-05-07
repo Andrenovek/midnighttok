@@ -198,13 +198,22 @@ body {
   height: 12px;
   overflow: hidden;
   margin-bottom: 0.5rem;
+  display: flex;
 }
 
 .bar-fill {
   height: 100%;
-  border-radius: 100px;
   transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.bar-fill-drake {
   background: linear-gradient(90deg, var(--drake), #ffd070);
+  border-radius: 100px 0 0 100px;
+}
+
+.bar-fill-travis {
+  background: linear-gradient(90deg, #c0294a, var(--travis));
+  border-radius: 0 100px 100px 0;
 }
 
 .bar-stats {
