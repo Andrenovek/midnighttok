@@ -87,6 +87,7 @@ function updateUI(data) {
 
   // Atualiza a largura da barra
   document.getElementById('bar-drake').style.width = pctDrake + '%';
+  document.getElementById('bar-travis').style.width = pctTravis + '%';
 
   // Exibe a seção de resultado
   document.getElementById('result-section').classList.add('visible');
