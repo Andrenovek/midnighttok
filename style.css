@@ -200,11 +200,18 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.bar-fill {
+.bar-filldrake {
   height: 100%;
   border-radius: 100px;
   transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   background: linear-gradient(90deg, var(--drake), #ffd070);
+}
+
+.bar-filltravis {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: linear-gradient(90deg, var(--travis), #2a0f15);
 }
 
 .bar-stats {
