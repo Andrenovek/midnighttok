@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAP BATTLE 🎵 Michael Jackson vs The Beatles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==============================
+       HEADER
+  ============================== -->
+  <div class="header">
+    <div class="header-tag">🎵 Music Battle</div>
+    <h1>
+      <span class="name-mj">MICHAEL<br>JACKSON</span>
+      <span class="vs">VS</span>
+      <span class="name-beatles">THE<br>BEATLES</span>
+    </h1>
+    <p class="header-sub">Who is the greatest of all time? You decide 👇</p>
+  </div>
+
+  <!-- ==============================
+       VOTING ARENA
+  ============================== -->
+  <div class="arena">
+    <div class="artist-card mj-card" id="card-mj">
+      <span class="artist-emoji">🕺</span>
+      <span class="artist-name">MICHAEL<br>JACKSON</span>
+      <span class="artist-origin">Gary, Indiana</span>
+      <button class="vote-btn mj-btn" onclick="vote('mj')">Vote</button>
+    </div>
+
+    <div class="artist-card beatles-card" id="card-beatles">
+      <span class="artist-emoji">🎸</span>
+      <span class="artist-name">THE<br>BEATLES</span>
+      <span class="artist-origin">Liverpool, UK</span>
+      <button class="vote-btn beatles-btn" onclick="vote('beatles')">Vote</button>
+    </div>
+  </div>
+
+  <!-- ==============================
+       RESULTS / VOTE BAR
+  ============================== -->
+  <div class="result-section" id="result-section">
+    <div class="result-label">Current results</div>
+    <div class="bar-container">
+      <div class="bar-fill bar-fill-mj" id="bar-mj" style="width: 50%;"></div>
+      <div class="bar-fill bar-fill-beatles" id="bar-beatles" style="width: 50%;"></div>
+    </div>
+    <div class="bar-stats">
+      <span class="stat-mj">🕺 MJ <span id="pct-mj">50</span>%</span>
+      <span class="stat-beatles"><span id="pct-beatles">50</span>% Beatles 🎸</span>
+    </div>
+    <div class="winner-banner" id="winner-banner"></div>
+  </div>
+
+  <!-- ==============================
+       PLAYLISTS
+  ============================== -->
+  <div class="section-divider"><span>Listen to the battle tracks</span></div>
+  <div class="playlist-section">
+
+    <a class="playlist-card" href="https://open.spotify.com/artist/3fMbdgg4jU18AjLCKBhRSm" target="_blank" rel="noopener">
+      <div class="playlist-thumb mj-thumb">🎵</div>
+      <div class="playlist-info">
+        <div class="playlist-name">Top Michael Jackson — Best hits</div>
+        <div class="playlist-meta">Spotify · Battle tracks</div>
+      </div>
+      <span class="playlist-arrow">›</span>
+    </a>
+
+    <a class="playlist-card" href="https://open.spotify.com/artist/3WrFJ7ztbogyGnTHbHJFl2" target="_blank" rel="noopener">
+      <div class="playlist-thumb beatles-thumb">🎵</div>
+      <div class="playlist-info">
+        <div class="playlist-name">Top The Beatles — Best hits</div>
+        <div class="playlist-meta">Spotify · Battle tracks</div>
+      </div>
+      <span class="playlist-arrow">›</span>
+    </a>
+
+  </div>
+
+  <!-- ==============================
+       AFFILIATE PRODUCTS
+  ============================== -->
+  <div class="section-divider"><span>Battle sponsors</span></div>
+  <div class="affiliate-section">
+
+    <a class="affiliate-card" href="YOUR_AFFILIATE_LINK_1" target="_blank" rel="noopener">
+      <div class="affiliate-badge">🔥 Recommended</div>
+      <div class="affiliate-body">
+        <div class="affiliate-icon">🎧</div>
+        <div class="affiliate-info">
+          <div class="affiliate-name">JBL Tune 510BT Headphones</div>
+          <div class="affiliate-desc">The go-to headphones for music fans. Bluetooth, deep bass.</div>
+        </div>
+      </div>
+      <span class="affiliate-cta">Check price on Amazon →</span>
+    </a>
+
+    <a class="affiliate-card beatles-theme" href="YOUR_AFFILIATE_LINK_2" target="_blank" rel="noopener">
+      <div class="affiliate-badge">🎸 For collectors</div>
+      <div class="affiliate-body">
+        <div class="affiliate-icon">🎵</div>
+        <div class="affiliate-info">
+          <div class="affiliate-name">Vinyl Record Player</div>
+          <div class="affiliate-desc">Listen to your favorites the classic way.</div>
+        </div>
+      </div>
+      <span class="affiliate-cta">Shop now →</span>
+    </a>
+
+  </div>
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+  <div class="footer">
+    <p>Created by <a href="https://www.tiktok.com/@andrenovek">@andrenovek</a> on TikTok</p>
+    <p>For entertainment purposes only · Not an official poll</p>
+  </div>
+
+  <!-- Notification toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>

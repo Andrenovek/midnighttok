@@ -1,0 +1,448 @@
+/* ============================================================
+   MJ VS BEATLES — style.css
+   1. Reset & Variáveis
+   2. Base / Body
+   3. Header
+   4. Arena (voting cards)
+   5. Results / Progress bar
+   6. Section dividers
+   7. Playlists
+   8. Affiliates
+   9. Footer
+   10. Toast
+============================================================ */
+
+
+/* ============================================================
+   1. RESET & VARIÁVEIS
+============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --mj:       #C9A84C;   /* gold — Michael Jackson */
+  --beatles:  #3A7BD5;   /* blue — The Beatles */
+  --bg:       #0A0A0A;
+  --surface:  #141414;
+  --surface2: #1E1E1E;
+  --text:     #F5F5F5;
+  --muted:    #888888;
+}
+
+
+/* ============================================================
+   2. BASE / BODY
+============================================================ */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* ============================================================
+   3. HEADER
+============================================================ */
+.header {
+  text-align: center;
+  padding: 2rem 1.25rem 1rem;
+}
+
+.header-tag {
+  display: inline-block;
+  background: #1E1E1E;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+  border: 1px solid #2a2a2a;
+}
+
+.header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 10vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: 2px;
+}
+
+.header h1 .vs {
+  display: block;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  color: var(--muted);
+  letter-spacing: 8px;
+  margin: 0.4rem 0;
+}
+
+.header h1 .name-mj      { color: var(--mj); }
+.header h1 .name-beatles  { color: var(--beatles); }
+
+.header-sub {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+
+/* ============================================================
+   4. ARENA (VOTING CARDS)
+============================================================ */
+.arena {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 1.5rem 1.25rem 1rem;
+}
+
+.artist-card {
+  border-radius: 16px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.2s;
+  background: var(--surface);
+}
+
+.artist-card:active { transform: scale(0.97); }
+
+.mj-card      { border-color: #2a2200; }
+.beatles-card { border-color: #0d1e3a; }
+
+.selected-mj      { border-color: var(--mj);      background: #1a1500; }
+.selected-beatles { border-color: var(--beatles);  background: #091524; }
+
+.artist-emoji {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.artist-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  display: block;
+  line-height: 1.1;
+}
+
+.mj-card      .artist-name { color: var(--mj); }
+.beatles-card .artist-name { color: var(--beatles); }
+
+.artist-origin {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 5px;
+  display: block;
+}
+
+.vote-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.65rem;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.vote-btn:active   { transform: scale(0.96); }
+.vote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.mj-btn      { background: var(--mj);      color: #000; }
+.beatles-btn { background: var(--beatles); color: #fff; }
+
+
+/* ============================================================
+   5. RESULTS / PROGRESS BAR
+============================================================ */
+.result-section {
+  padding: 0.5rem 1.25rem 1.5rem;
+  display: none;
+}
+
+.result-section.visible { display: block; }
+
+.result-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.bar-container {
+  background: var(--surface2);
+  border-radius: 100px;
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+
+.bar-fill {
+  height: 100%;
+  transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.bar-fill-mj {
+  background: linear-gradient(90deg, #a07830, var(--mj));
+  border-radius: 100px 0 0 100px;
+}
+
+.bar-fill-beatles {
+  background: linear-gradient(90deg, var(--beatles), #6aaeff);
+  border-radius: 0 100px 100px 0;
+}
+
+.bar-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stat-mj      { color: var(--mj); }
+.stat-beatles { color: var(--beatles); }
+
+.winner-banner {
+  margin-top: 1rem;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid #2a2a2a;
+  display: none;
+}
+
+.winner-banner.show { display: block; }
+
+
+/* ============================================================
+   6. SECTION DIVIDERS
+============================================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem 1.25rem;
+}
+
+.section-divider span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #222;
+}
+
+
+/* ============================================================
+   7. PLAYLISTS
+============================================================ */
+.playlist-section {
+  padding: 0.5rem 1.25rem 1rem;
+}
+
+.playlist-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 10px;
+  border: 1px solid #1e1e1e;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.playlist-card:active { background: #1a1a1a; }
+
+.playlist-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.mj-thumb      { background: #1a1500; }
+.beatles-thumb { background: #091524; }
+
+.playlist-info { flex: 1; min-width: 0; }
+
+.playlist-name {
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.playlist-arrow {
+  color: var(--muted);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   8. AFFILIATES
+============================================================ */
+.affiliate-section {
+  padding: 0.5rem 1.25rem 2rem;
+}
+
+.affiliate-card {
+  background: var(--surface);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #1e1e1e;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: background 0.15s;
+}
+
+.affiliate-card:active { background: #1a1a1a; }
+
+.affiliate-badge {
+  background: #1E1E1E;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 5px 14px;
+  border-bottom: 1px solid #222;
+}
+
+.affiliate-body {
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.affiliate-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  background: #1a1500;
+}
+
+.affiliate-info { flex: 1; }
+
+.affiliate-name {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
+.affiliate-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.affiliate-cta {
+  display: block;
+  margin: 0 1.1rem 1rem;
+  background: var(--mj);
+  color: #000;
+  text-align: center;
+  padding: 0.65rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.affiliate-card.beatles-theme .affiliate-icon { background: #091524; }
+.affiliate-card.beatles-theme .affiliate-cta  { background: var(--beatles); color: #fff; }
+
+
+/* ============================================================
+   9. FOOTER
+============================================================ */
+.footer {
+  text-align: center;
+  padding: 1.5rem 1.25rem 2.5rem;
+  font-size: 12px;
+  color: #444;
+  line-height: 1.8;
+}
+
+.footer a {
+  color: #555;
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   10. TOAST
+============================================================ */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #fff;
+  color: #000;
+  padding: 0.7rem 1.5rem;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 999;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
