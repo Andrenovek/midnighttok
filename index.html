@@ -3,136 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAP BATTLE 🎵 Drake vs Travis Scott</title>
-
-  <!-- Google Fonts -->
+  <title>MidnightTok — Rap Battles</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ==============================
-       HEADER
-  ============================== -->
-  <div class="header">
-    <div class="header-tag">🎵 Rap Battle</div>
-    <h1>
-      <span class="name-drake">DRAKE</span>
-      <span class="vs">VS</span>
-      <span class="name-travis">TRAVIS SCOTT</span>
-    </h1>
-    <p class="header-sub">Who won this battle? You decide 👇</p>
+  <!-- HEADER -->
+  <div class="home-header">
+    <div class="home-logo">🎵 MidnightTok</div>
+    <p class="home-sub">Vote on your favorite rap battles</p>
   </div>
 
-  <!-- ==============================
-       VOTING ARENA
-  ============================== -->
-  <div class="arena">
-    <div class="artist-card drake-card" id="card-drake">
-      <span class="artist-emoji">🦉</span>
-      <span class="artist-name">DRAKE</span>
-      <span class="artist-origin">Toronto, CA</span>
-      <button class="vote-btn drake-btn" onclick="vote('drake')">Vote</button>
-    </div>
+  <!-- BATTLES LIST -->
+  <div class="section-label">🔥 Active Battles</div>
+  <div class="battles-list">
 
-    <div class="artist-card travis-card" id="card-travis">
-      <span class="artist-emoji">🌵</span>
-      <span class="artist-name">TRAVIS</span>
-      <span class="artist-origin">Houston, TX</span>
-      <button class="vote-btn travis-btn" onclick="vote('travis')">Vote</button>
-    </div>
-  </div>
-
-  <!-- ==============================
-       RESULTS / VOTE BAR
-  ============================== -->
-  <div class="result-section" id="result-section">
-    <div class="result-label">Current results</div>
-    <div class="bar-container">
-      <div class="bar-fill bar-fill-drake" id="bar-drake" style="width: 50%;"></div>
-      <div class="bar-fill bar-fill-travis" id="bar-travis" style="width: 50%;"></div>
-    </div>
-    <div class="bar-stats">
-      <span class="stat-drake">🦉 Drake <span id="pct-drake">50</span>%</span>
-      <span class="stat-travis"><span id="pct-travis">50</span>% Travis 🌵</span>
-    </div>
-    <div class="winner-banner" id="winner-banner"></div>
-  </div>
-
-  <!-- ==============================
-       PLAYLISTS
-  ============================== -->
-  <div class="section-divider"><span>Listen to the battle tracks</span></div>
-  <div class="playlist-section">
-
-    <a class="playlist-card" href="https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" target="_blank" rel="noopener">
-      <div class="playlist-thumb drake-thumb">🎵</div>
-      <div class="playlist-info">
-        <div class="playlist-name">Top Drake — Best hits</div>
-        <div class="playlist-meta">Spotify · Battle tracks</div>
+    <!-- BATTLE CARD — Drake vs Travis -->
+    <a class="battle-item" href="drake-vs-travis/">
+      <div class="battle-artists">
+        <span class="ba drake">🦉 Drake</span>
+        <span class="ba-vs">VS</span>
+        <span class="ba travis">Travis Scott 🌵</span>
       </div>
-      <span class="playlist-arrow">›</span>
+      <div class="battle-meta">Tap to vote →</div>
     </a>
 
-    <a class="playlist-card" href="https://open.spotify.com/artist/0Y5tJX1MQlPlqiwlOH1tJY" target="_blank" rel="noopener">
-      <div class="playlist-thumb travis-thumb">🎵</div>
-      <div class="playlist-info">
-        <div class="playlist-name">Top Travis Scott — Best hits</div>
-        <div class="playlist-meta">Spotify · Battle tracks</div>
+    <!-- TEMPLATE: copy the block above to add new battles
+    <a class="battle-item" href="kendrick-vs-cole/">
+      <div class="battle-artists">
+        <span class="ba kendrick">🎤 Kendrick</span>
+        <span class="ba-vs">VS</span>
+        <span class="ba cole">J. Cole 👑</span>
       </div>
-      <span class="playlist-arrow">›</span>
+      <div class="battle-meta">Tap to vote →</div>
+    </a>
+    -->
+
+  </div>
+
+  <!-- AFFILIATE PRODUCTS -->
+  <div class="section-label">🎧 Gear for Music Lovers</div>
+  <div class="products-list">
+
+    <a class="product-item" href="YOUR_AFFILIATE_LINK_1" target="_blank" rel="noopener">
+      <div class="product-icon">🎧</div>
+      <div class="product-info">
+        <div class="product-name">JBL Tune 510BT</div>
+        <div class="product-desc">Wireless headphones · Deep bass</div>
+      </div>
+      <div class="product-cta">Buy →</div>
+    </a>
+
+    <a class="product-item" href="YOUR_AFFILIATE_LINK_2" target="_blank" rel="noopener">
+      <div class="product-icon">🔊</div>
+      <div class="product-info">
+        <div class="product-name">JBL Flip 6</div>
+        <div class="product-desc">Portable speaker · Waterproof</div>
+      </div>
+      <div class="product-cta">Buy →</div>
+    </a>
+
+    <a class="product-item" href="YOUR_AFFILIATE_LINK_3" target="_blank" rel="noopener">
+      <div class="product-icon">🎤</div>
+      <div class="product-info">
+        <div class="product-name">Hip Hop Streetwear</div>
+        <div class="product-desc">Trap style · Fast shipping</div>
+      </div>
+      <div class="product-cta">Buy →</div>
     </a>
 
   </div>
 
-  <!-- ==============================
-       AFFILIATE PRODUCTS
-  ============================== -->
-  <div class="section-divider"><span>Battle sponsors</span></div>
-  <div class="affiliate-section">
-
-    <a class="affiliate-card" href="https://amzn.to/42gpnDu" target="_blank" rel="noopener">
-      <div class="affiliate-badge">🔥 Recommended</div>
-      <div class="affiliate-body">
-        <div class="affiliate-icon">🎧</div>
-        <div class="affiliate-info">
-          <div class="affiliate-name">Anker Soundcore Space One</div>
-          <div class="affiliate-desc">The go-to headphones for rap fans. Bluetooth, deep bass.</div>
-        </div>
-      </div>
-      <span class="affiliate-cta">Check price on Amazon →</span>
-    </a>
-
-    <a class="affiliate-card travis-theme" href="https://amzn.to/4u3X3jN" target="_blank" rel="noopener">
-      <div class="affiliate-badge">💿 For collectors</div>
-      <div class="affiliate-body">
-        <div class="affiliate-icon">🎤</div>
-        <div class="affiliate-info">
-          <div class="affiliate-name">Hip Hop Streetwear T-Shirt</div>
-          <div class="affiliate-desc">Trap style straight to your fit. Fast shipping.</div>
-        </div>
-      </div>
-      <span class="affiliate-cta">Shop now →</span>
-    </a>
-
+  <!-- FOOTER -->
+  <div class="home-footer">
+    <a href="https://www.tiktok.com/@andrenovek" target="_blank">@andrenovek</a> on TikTok
+    <br>For entertainment purposes only
   </div>
-
-  <!-- ==============================
-       FOOTER
-  ============================== -->
-  <div class="footer">
-    <p>Created by <a href="#">@midnighttok_</a> on TikTok</p>
-    <p>For entertainment purposes only · Not an official poll</p>
-  </div>
-
-  <!-- Notification toast -->
-  <div class="toast" id="toast"></div>
-
-  <!-- Firebase CDN -->
-  <script type="module" src="script.js"></script>
 
 </body>
 </html>
