@@ -128,6 +128,9 @@ body {
 .ba.mj      { color: #C9A84C; }
 .ba.beatles { color: #3A7BD5; }
 
+.ba.taylor { color: #D4AF37; }
+.ba.olivia { color: #8B5CF6; }
+
 .ba-vs {
   font-size: 0.75rem;
   color: var(--muted);

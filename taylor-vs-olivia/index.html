@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUSIC BATTLE 🎵 Taylor Swift vs Olivia Rodrigo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==============================
+       HEADER
+  ============================== -->
+  <div class="header">
+    <div class="header-tag">🎵 Music Battle</div>
+    <h1>
+      <span class="name-taylor">TAYLOR<br>SWIFT</span>
+      <span class="vs">VS</span>
+      <span class="name-olivia">OLIVIA<br>RODRIGO</span>
+    </h1>
+    <p class="header-sub">Who is the queen of pop? You decide 👇</p>
+  </div>
+
+  <!-- ==============================
+       VOTING ARENA
+  ============================== -->
+  <div class="arena">
+    <div class="artist-card taylor-card" id="card-taylor">
+      <span class="artist-emoji">✨</span>
+      <span class="artist-name">TAYLOR<br>SWIFT</span>
+      <span class="artist-origin">West Reading, PA</span>
+      <button class="vote-btn taylor-btn" onclick="vote('taylor')">Vote</button>
+    </div>
+
+    <div class="artist-card olivia-card" id="card-olivia">
+      <span class="artist-emoji">💜</span>
+      <span class="artist-name">OLIVIA<br>RODRIGO</span>
+      <span class="artist-origin">Temecula, CA</span>
+      <button class="vote-btn olivia-btn" onclick="vote('olivia')">Vote</button>
+    </div>
+  </div>
+
+  <!-- ==============================
+       RESULTS / VOTE BAR
+  ============================== -->
+  <div class="result-section" id="result-section">
+    <div class="result-label">Current results</div>
+    <div class="bar-container">
+      <div class="bar-fill bar-fill-taylor" id="bar-taylor" style="width: 50%;"></div>
+      <div class="bar-fill bar-fill-olivia" id="bar-olivia" style="width: 50%;"></div>
+    </div>
+    <div class="bar-stats">
+      <span class="stat-taylor">✨ Taylor <span id="pct-taylor">50</span>%</span>
+      <span class="stat-olivia"><span id="pct-olivia">50</span>% Olivia 💜</span>
+    </div>
+    <div class="winner-banner" id="winner-banner"></div>
+  </div>
+
+  <!-- ==============================
+       PLAYLISTS
+  ============================== -->
+  <div class="section-divider"><span>Listen to the battle tracks</span></div>
+  <div class="playlist-section">
+
+    <a class="playlist-card" href="https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02" target="_blank" rel="noopener">
+      <div class="playlist-thumb taylor-thumb">🎵</div>
+      <div class="playlist-info">
+        <div class="playlist-name">Top Taylor Swift — Best hits</div>
+        <div class="playlist-meta">Spotify · Battle tracks</div>
+      </div>
+      <span class="playlist-arrow">›</span>
+    </a>
+
+    <a class="playlist-card" href="https://open.spotify.com/artist/1McMsnEElThX1knmY4oliG" target="_blank" rel="noopener">
+      <div class="playlist-thumb olivia-thumb">🎵</div>
+      <div class="playlist-info">
+        <div class="playlist-name">Top Olivia Rodrigo — Best hits</div>
+        <div class="playlist-meta">Spotify · Battle tracks</div>
+      </div>
+      <span class="playlist-arrow">›</span>
+    </a>
+
+  </div>
+
+  <!-- ==============================
+       AFFILIATE PRODUCTS
+  ============================== -->
+  <div class="section-divider"><span>Battle sponsors</span></div>
+  <div class="affiliate-section">
+
+    <a class="affiliate-card" href="YOUR_AFFILIATE_LINK_1" target="_blank" rel="noopener">
+      <div class="affiliate-badge">🔥 Recommended</div>
+      <div class="affiliate-body">
+        <div class="affiliate-icon">🎧</div>
+        <div class="affiliate-info">
+          <div class="affiliate-name">JBL Tune 510BT Headphones</div>
+          <div class="affiliate-desc">The go-to headphones for music fans. Bluetooth, deep bass.</div>
+        </div>
+      </div>
+      <span class="affiliate-cta">Check price on Amazon →</span>
+    </a>
+
+    <a class="affiliate-card olivia-theme" href="YOUR_AFFILIATE_LINK_2" target="_blank" rel="noopener">
+      <div class="affiliate-badge">💜 Fan favorite</div>
+      <div class="affiliate-body">
+        <div class="affiliate-icon">🎤</div>
+        <div class="affiliate-info">
+          <div class="affiliate-name">Karaoke Microphone</div>
+          <div class="affiliate-desc">Sing your favorite hits. Bluetooth, portable.</div>
+        </div>
+      </div>
+      <span class="affiliate-cta">Shop now →</span>
+    </a>
+
+  </div>
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+  <div class="footer">
+    <p>Created by <a href="https://www.tiktok.com/@andrenovek">@andrenovek</a> on TikTok</p>
+    <p>For entertainment purposes only · Not an official poll</p>
+  </div>
+
+  <!-- Notification toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>
