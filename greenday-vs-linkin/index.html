@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUSIC BATTLE 🎸 Green Day vs Linkin Park</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==============================
+       HEADER
+  ============================== -->
+  <div class="header">
+    <div class="header-tag">🎸 Rock Battle</div>
+    <h1>
+      <span class="name-greenday">GREEN<br>DAY</span>
+      <span class="vs">VS</span>
+      <span class="name-linkin">LINKIN<br>PARK</span>
+    </h1>
+    <p class="header-sub">Who is the greatest rock band? You decide 👇</p>
+  </div>
+
+  <!-- ==============================
+       VOTING ARENA
+  ============================== -->
+  <div class="arena">
+    <div class="artist-card greenday-card" id="card-greenday">
+      <span class="artist-emoji">🌿</span>
+      <span class="artist-name">GREEN<br>DAY</span>
+      <span class="artist-origin">Berkeley, CA</span>
+      <button class="vote-btn greenday-btn" onclick="vote('greenday')">Vote</button>
+    </div>
+
+    <div class="artist-card linkin-card" id="card-linkin">
+      <span class="artist-emoji">⚡</span>
+      <span class="artist-name">LINKIN<br>PARK</span>
+      <span class="artist-origin">Agoura Hills, CA</span>
+      <button class="vote-btn linkin-btn" onclick="vote('linkin')">Vote</button>
+    </div>
+  </div>
+
+  <!-- ==============================
+       RESULTS / VOTE BAR
+  ============================== -->
+  <div class="result-section" id="result-section">
+    <div class="result-label">Current results</div>
+    <div class="bar-container">
+      <div class="bar-fill bar-fill-greenday" id="bar-greenday" style="width: 50%;"></div>
+      <div class="bar-fill bar-fill-linkin"   id="bar-linkin"   style="width: 50%;"></div>
+    </div>
+    <div class="bar-stats">
+      <span class="stat-greenday">🌿 Green Day <span id="pct-greenday">50</span>%</span>
+      <span class="stat-linkin"><span id="pct-linkin">50</span>% Linkin Park ⚡</span>
+    </div>
+    <div class="winner-banner" id="winner-banner"></div>
+  </div>
+
+  <!-- ==============================
+       PLAYLISTS
+  ============================== -->
+  <div class="section-divider"><span>Listen to the battle tracks</span></div>
+  <div class="playlist-section">
+
+    <a class="playlist-card" href="https://open.spotify.com/artist/7oPftvlwr6VrsViSDV7fJY" target="_blank" rel="noopener">
+      <div class="playlist-thumb greenday-thumb">🎵</div>
+      <div class="playlist-info">
+        <div class="playlist-name">Top Green Day — Best hits</div>
+        <div class="playlist-meta">Spotify · Battle tracks</div>
+      </div>
+      <span class="playlist-arrow">›</span>
+    </a>
+
+    <a class="playlist-card" href="https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz" target="_blank" rel="noopener">
+      <div class="playlist-thumb linkin-thumb">🎵</div>
+      <div class="playlist-info">
+        <div class="playlist-name">Top Linkin Park — Best hits</div>
+        <div class="playlist-meta">Spotify · Battle tracks</div>
+      </div>
+      <span class="playlist-arrow">›</span>
+    </a>
+
+  </div>
+
+  <!-- ==============================
+       AFFILIATE PRODUCTS
+  ============================== -->
+  <div class="section-divider"><span>Battle sponsors</span></div>
+  <div class="affiliate-section">
+
+    <a class="affiliate-card" href="https://amzn.to/3QXPMDx" target="_blank" rel="noopener">
+      <div class="affiliate-badge">🔥 Recommended</div>
+      <div class="affiliate-body">
+        <div class="affiliate-icon">🎧</div>
+        <div class="affiliate-info">
+          <div class="affiliate-name">JBL Tune 510BT Headphones</div>
+          <div class="affiliate-desc">The go-to headphones for rock fans. Bluetooth, deep bass.</div>
+        </div>
+      </div>
+      <span class="affiliate-cta">Check price on Amazon →</span>
+    </a>
+
+    <a class="affiliate-card linkin-theme" href="https://amzn.to/4eENbrY" target="_blank" rel="noopener">
+      <div class="affiliate-badge">🎸 For rock fans</div>
+      <div class="affiliate-body">
+        <div class="affiliate-icon">🎸</div>
+        <div class="affiliate-info">
+          <div class="affiliate-name">Guitar Pick Set</div>
+          <div class="affiliate-desc">Premium picks for every style. Pack of 50.</div>
+        </div>
+      </div>
+      <span class="affiliate-cta">Shop now →</span>
+    </a>
+
+  </div>
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+  <div class="footer">
+    <p>Created by <a href="https://www.tiktok.com/@midnighttok_">@midnighttok_</a> on TikTok</p>
+    <p>For entertainment purposes only · Not an official poll</p>
+  </div>
+
+  <!-- Notification toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>

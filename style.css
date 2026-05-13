@@ -131,6 +131,9 @@ body {
 .ba.taylor { color: #D4AF37; }
 .ba.olivia { color: #8B5CF6; }
 
+.ba.greenday { color: #4ADE80; }
+.ba.linkin   { color: #E63946; }
+
 .ba-vs {
   font-size: 0.75rem;
   color: var(--muted);
